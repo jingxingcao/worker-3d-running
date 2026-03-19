@@ -9523,6 +9523,8 @@
     const root = document.getRoot();
     const nodes = root.listNodes();
     const nodeMap = /* @__PURE__ */ new Map();
+    const foreignKeyMap = /* @__PURE__ */ new Map();
+    const otherKeyMap = /* @__PURE__ */ new Map();
     const parentMap = /* @__PURE__ */ new Map();
     const childrenMap = /* @__PURE__ */ new Map();
     nodes.forEach((node, index) => {
@@ -9555,6 +9557,8 @@
       }
       nodeMap.set(id, entity);
       childrenMap.set(id, /* @__PURE__ */ new Set());
+      if (entity.foreignKey) foreignKeyMap.set(entity.foreignKey, entity);
+      if (entity.otherKey) otherKeyMap.set(entity.otherKey, entity);
     });
     nodes.forEach((node) => {
       const id = node.getName() ?? "";
@@ -9571,6 +9575,8 @@
     });
     return {
       nodeMap: Array.from(nodeMap.entries()),
+      foreignKeyMap: Array.from(nodeMap.entries()),
+      otherKeyMap: Array.from(nodeMap.entries()),
       parentMap: Array.from(parentMap.entries()),
       childrenMap: Array.from(Array.from(childrenMap.entries()).map(([k, v]) => [k, Array.from(v)]))
     };

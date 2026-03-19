@@ -9504,13 +9504,13 @@
     return /^(B|F|R|D|C)-/.test(name);
   };
   var findParentBizNode = (node) => {
-    let parent = node.getParent();
+    let parent = node.getParentNode?.();
     while (parent) {
       const name = parent.getName?.() ?? "";
       if (isBizNode(name)) {
         return parent;
       }
-      parent = parent.getParent();
+      parent = parent.getParentNode?.();
     }
     return null;
   };
